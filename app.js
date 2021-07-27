@@ -7,7 +7,8 @@ const passport = require("passport");
 const flash = require("connect-flash");
 const connectDB = require("./config/db");
 require("dotenv").config();
-const indexRouter = require("./routes/index");
+// const indexRouter = require("./routes/index");
+const userRouter = require("./routes/users");
 
 app.use(express.json());
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
@@ -27,11 +28,10 @@ app.use(function (req, res, next) {
 // Connect database
 connectDB();
 
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-
-app.use("/", indexRouter);
+app.use("/", (req, res) => {
+  res.send("Hello World!!");
+});
+app.use("/users", userRouter);
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("Your app is listening on port 3000");

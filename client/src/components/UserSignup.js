@@ -3,6 +3,7 @@ import React from "react";
 const UserSignup = () => {
   return (
     <form action="" method="POST">
+      <h2>Sign Up</h2>
       <fieldset>
         <label for="username">
           Username

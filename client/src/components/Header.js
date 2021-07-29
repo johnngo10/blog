@@ -6,9 +6,15 @@ const Header = () => {
       <h1>Blog</h1>
       <nav>
         <ul>
-          <li>Home</li>
-          <li>Sign Up</li>
-          <li>Log In</li>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/user/signup">Sign Up</a>
+          </li>
+          <li>
+            <a href="/user/login">Log In</a>
+          </li>
         </ul>
       </nav>
     </header>

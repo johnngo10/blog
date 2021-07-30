@@ -9,7 +9,7 @@ const connectDB = require("./config/db");
 require("dotenv").config();
 // const indexRouter = require("./routes/index");
 const userRouter = require("./routes/users");
-const postRouter = require("./routes/posts");
+// const postRouter = require("./routes/posts");
 
 app.use(express.json());
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
@@ -29,12 +29,12 @@ app.use(function (req, res, next) {
 // Connect database
 connectDB();
 
-app.use("/", (req, res) => {
-  res.send("Hello World!!");
-});
+// app.use("/", (req, res) => {
+//   res.send("Hello World!!");
+// });
 app.use("/api/user", userRouter);
-app.use("/api/post", postRouter);
+// app.use("/api/post", postRouter);
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log("Your app is listening on port 3000");
+app.listen(process.env.PORT || 5000, () => {
+  console.log("Your app is listening on port 5000");
 });

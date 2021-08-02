@@ -15,4 +15,7 @@ router.get("/test", (req, res) => {
 // POST request for registering a new user
 router.post("/signup", user_controller.user_create_post);
 
+// POST request for logging in user
+router.post("/login");
+
 module.exports = router;

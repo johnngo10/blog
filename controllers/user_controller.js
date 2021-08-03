@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const jwt = require("jsonwebtoken");
+const keys = require("../config/keys");
 
 exports.user_create_post = (req, res) => {
   const { username, password, confirmPassword } = req.body;
@@ -37,7 +38,19 @@ exports.user_create_post = (req, res) => {
               })
                 .save()
                 .then((user) => {
-                  res.json(user);
+                  const payload = { id: user.id, username: user.username };
+
+                  jwt.sign(
+                    payload,
+                    keys.secretOrKey,
+                    { expiresIn: 3600 },
+                    (err, token) => {
+                      res.json({
+                        success: true,
+                        token: "Bearer " + token,
+                      });
+                    }
+                  );
                 })
                 .catch((err) => console.log(err));
             }
@@ -59,7 +72,26 @@ exports.user_login_post = (req, res) => {
         return res.status(404).json({ errors: "This user does not exist" });
       }
 
-      bcrypt.compare(password, user.password).then();
+      bcrypt.compare(password, user.password).then((isMatch) => {
+        if (isMatch) {
+          const payload = { id: user.id, username: user.username };
+
+          jwt.sign(
+            payload,
+            keys.secretOrKey,
+            { expiresIn: 3600 },
+            (err, token) => {
+              res.json({
+                success: true,
+                token: "Bearer " + token,
+              });
+            }
+          );
+        } else {
+          req.flash("passwordError", "Password does not match.");
+          res.status(400).json({ errors: "Password does not match" });
+        }
+      });
     });
   }
 };

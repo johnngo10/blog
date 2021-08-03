@@ -1,12 +1,11 @@
 const express = require("express");
-const path = require("path");
 const cookieParser = require("cookie-parser");
 const app = express();
 const session = require("express-session");
 const passport = require("passport");
 const flash = require("connect-flash");
-const connectDB = require("./config/db");
-require("dotenv").config();
+const db = require("./config/keys").mongoURI;
+const { Mongoose } = require("mongoose");
 // const indexRouter = require("./routes/index");
 const userRouter = require("./routes/users");
 // const postRouter = require("./routes/posts");
@@ -18,7 +17,6 @@ app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(flash());
-app.use(express.static(path.join(__dirname, "public")));
 
 // Middleware for giving all views access to the currentUser variable
 app.use(function (req, res, next) {
@@ -27,7 +25,14 @@ app.use(function (req, res, next) {
 });
 
 // Connect database
-connectDB();
+Mongoose.connect(db, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+})
+  .then(() => console.log("Connected to MongoDB successfully"))
+  .catch((err) => console.log(err));
 
 // app.use("/", (req, res) => {
 //   res.send("Hello World!!");

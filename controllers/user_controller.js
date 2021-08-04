@@ -5,6 +5,13 @@ const LocalStrategy = require("passport-local");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
 
+exports.user_current_get = (req, res) => {
+  res.json({
+    id: req.user.id,
+    username: req.user.username,
+  });
+};
+
 exports.user_create_post = (req, res) => {
   const { username, password, confirmPassword } = req.body;
 

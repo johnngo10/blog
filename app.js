@@ -3,9 +3,10 @@ const cookieParser = require("cookie-parser");
 const app = express();
 const session = require("express-session");
 const passport = require("passport");
+require("./config/passport")(passport);
 const flash = require("connect-flash");
 const db = require("./config/keys").mongoURI;
-const { Mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 // const indexRouter = require("./routes/index");
 const userRouter = require("./routes/users");
 // const postRouter = require("./routes/posts");
@@ -25,18 +26,16 @@ app.use(function (req, res, next) {
 });
 
 // Connect database
-Mongoose.connect(db, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-})
+mongoose
+  .connect(db, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch((err) => console.log(err));
 
-// app.use("/", (req, res) => {
-//   res.send("Hello World!!");
-// });
 app.use("/api/user", userRouter);
 // app.use("/api/post", postRouter);
 

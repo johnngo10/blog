@@ -4,6 +4,7 @@ const User = require("../models/User");
 exports.post_get = (req, res) => {
   Post.find()
     .sort({ date: -1 })
+    .populate("author")
     .then((posts) => res.json(posts))
     .catch((err) => res.status(404).json({ error: "No posts found" }));
 };
@@ -18,7 +19,7 @@ exports.post_user_get = (req, res) => {
 };
 
 exports.post_id_get = (req, res) => {
-  const { id } = req.params.id;
+  const { id } = req.params;
   Post.findById(id)
     .then((post) => res.json(post))
     .catch((err) => {

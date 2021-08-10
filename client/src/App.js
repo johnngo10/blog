@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { AuthRoute, ProtectedRoute } from "../util/route_util";
+import { AuthRoute, ProtectedRoute } from "./util/route_util";
 import "./App.css";
 
 import Main from "./components/Main";
 import Header from "./components/Header";
-import UserSignup from "./components/UserSignup";
-import UserLogin from "./components/UserLogin";
+import UserSignup from "./components/Auth/UserSignup";
+import UserLogin from "./components/Auth/UserLogin";
 import Post from "./components/Post";
 import PostForm from "./components/PostForm";
 

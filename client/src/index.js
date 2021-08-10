@@ -16,7 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const preloadedState = {
       session: { isAuthenticated: true, user: decodedUser },
     };
-    const currentTime = Date.now() / 100;
+
+    store = configureStore(preloadedState);
+
+    const currentTime = Date.now() / 1000;
 
     if (decodedUser.exp < currentTime) {
       store.dispatch(logout());

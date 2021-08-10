@@ -1,40 +1,53 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { withRouter, Link } from "react-router-dom";
 
-const UserLogin = () => {
+const UserLogin = (props) => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
+    errors: {},
   });
 
-  const { username, password } = formData;
+  const { username, password, errors } = formData;
 
-  const history = useHistory();
+  useEffect(() => {
+    if (props.currentUser === true) {
+      props.history.push("/");
+    }
+
+    setFormData({ ...formData, errors: props.errors });
+  }, [props.currentUser]);
+
+  // const componentWillReceiveProps = (nextProps) => {
+  //   if (nextProps.currentUser === true) {
+  //     this.props.history.push("/");
+  //   }
+
+  //   setFormData({ ...formData, errors: nextProps.errors });
+  // };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const user = {
       username,
       password,
     };
 
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const body = JSON.stringify(user);
-      await axios.post("/api/user/login", body, config);
-      history.pushState("/");
-    } catch (err) {
-      console.log(err);
-    }
+    props.login(user);
+  };
+
+  const renderErrors = () => {
+    return (
+      <ul>
+        {Object.keys(errors).map((error, i) => (
+          <li key={i}>{errors[error]}</li>
+        ))}
+      </ul>
+    );
   };
 
   return (
@@ -66,8 +79,9 @@ const UserLogin = () => {
         <input type="submit" value="Login"></input>
         <a href="/">Cancel</a>
       </fieldset>
+      {renderErrors()}
     </form>
   );
 };
 
-export default UserLogin;
+export default withRouter(UserLogin);

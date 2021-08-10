@@ -1,42 +1,47 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { Link, useHistory, withRouter } from "react-router-dom";
 
-const UserSignup = () => {
+const UserSignup = (props) => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     confirmPassword: "",
+    errors: {},
   });
 
-  const { username, password, confirmPassword } = formData;
+  const { username, password, confirmPassword, errors } = formData;
 
-  const history = useHistory();
+  useEffect(() => {
+    if (props.signedIn === true) {
+      props.history("/user/login");
+    }
+
+    setFormData({ ...formData, errors: props.errors });
+  }, [props.signedIn]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     let user = { username, password, confirmPassword };
 
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const body = JSON.stringify(user);
-      await axios.post("/api/user/signup", body, config);
-      history.push("/user/login");
-    } catch (err) {
-      console.log(err);
-    }
+    props.signup(user, props.history);
+  };
+
+  const renderErrors = () => {
+    return (
+      <ul>
+        {Object.keys(errors).map((error, i) => (
+          <li key={i}>{errors[error]}</li>
+        ))}
+      </ul>
+    );
   };
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
+    <form onSubmit={handleSubmit}>
       <h2>Sign Up</h2>
       <fieldset>
         <label for="username">
@@ -74,8 +79,9 @@ const UserSignup = () => {
         <input type="submit" value="Sign Up"></input>
         <a href="/">Cancel</a>
       </fieldset>
+      {renderErrors()}
     </form>
   );
 };
 
-export default UserSignup;
+export default withRouter(UserSignup);

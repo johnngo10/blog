@@ -4,20 +4,20 @@ import { AuthRoute, ProtectedRoute } from "./util/route_util";
 import "./App.css";
 
 import Main from "./components/Main";
-import Header from "./components/Header";
-import UserSignup from "./components/Auth/UserSignup";
-import UserLogin from "./components/Auth/UserLogin";
+import HeaderContainer from "./components/HeaderContainer"
+import UserSignupContainer from "./components/Auth/UserSignupContainer";
+import UserLoginContainer from "./components/Auth/UserLoginContainer";
 import Post from "./components/Post";
 import PostForm from "./components/PostForm";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Header />
+      <HeaderContainer />
       <Switch>
         <AuthRoute exact path="/" component={Main} />
-        <AuthRoute exact path="/user/signup" component={UserSignup} />
-        <AuthRoute exact path="/user/login" component={UserLogin} />
+        <AuthRoute exact path="/user/signup" component={UserSignupContainer} />
+        <AuthRoute exact path="/user/login" component={UserLoginContainer} />
         <Route exact path="/post/:id" component={Post} />
         <Route exact path="/post/create" component={PostForm} />
       </Switch>

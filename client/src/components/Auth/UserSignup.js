@@ -13,7 +13,7 @@ const UserSignup = (props) => {
 
   useEffect(() => {
     if (props.signedIn === true) {
-      props.history("/user/login");
+      props.history.push("/user/login");
     }
 
     setFormData({ ...formData, errors: props.errors });

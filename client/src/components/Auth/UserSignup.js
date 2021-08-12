@@ -11,6 +11,8 @@ const UserSignup = (props) => {
 
   const { username, password, confirmPassword, errors } = formData;
 
+  const clearedErrors = false
+
   useEffect(() => {
     if (props.signedIn === true) {
       props.history.push("/user/login");

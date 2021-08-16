@@ -54,7 +54,7 @@ const UserLogin = (props) => {
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
       <fieldset>
-        <label for="username">
+        <label htmlFor="username">
           Username
           <input
             type="text"
@@ -64,7 +64,7 @@ const UserLogin = (props) => {
             required
           ></input>
         </label>
-        <label for="password">
+        <label htmlFor="password">
           Password
           <input
             type="password"

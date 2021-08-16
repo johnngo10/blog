@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const PostForm = (props) => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,8 @@ const PostForm = (props) => {
 
   const { title, content } = formData;
 
+  const history = useHistory();
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -18,12 +21,13 @@ const PostForm = (props) => {
     let post = { title, content };
 
     props.composePost(post);
+    history.push("/");
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <fieldset>
-        <label for="title">
+        <label htmlFor="title">
           Title
           <input
             name="title"
@@ -33,7 +37,7 @@ const PostForm = (props) => {
             required
           ></input>
         </label>
-        <label for="content">
+        <label htmlFor="content">
           Content
           <textarea
             name="content"

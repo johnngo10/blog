@@ -11,7 +11,7 @@ const UserSignup = (props) => {
 
   const { username, password, confirmPassword, errors } = formData;
 
-  const clearedErrors = false
+  const clearedErrors = false;
 
   useEffect(() => {
     if (props.signedIn === true) {
@@ -46,7 +46,7 @@ const UserSignup = (props) => {
     <form onSubmit={handleSubmit}>
       <h2>Sign Up</h2>
       <fieldset>
-        <label for="username">
+        <label htmlFor="username">
           Username
           <input
             type="text"
@@ -56,7 +56,7 @@ const UserSignup = (props) => {
             required
           ></input>
         </label>
-        <label for="password">
+        <label htmlFor="password">
           Password
           <input
             type="password"
@@ -66,7 +66,7 @@ const UserSignup = (props) => {
             required
           ></input>
         </label>
-        <label for="confirmPassword">
+        <label htmlFor="confirmPassword">
           Confirm Password
           <input
             type="password"

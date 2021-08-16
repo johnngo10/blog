@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { AuthRoute, ProtectedRoute } from "./util/route_util";
 import "./App.css";
 
-import Main from "./components/Main";
+import MainContainer from "./components/MainContainer";
 import HeaderContainer from "./components/HeaderContainer";
 import UserSignupContainer from "./components/Auth/UserSignupContainer";
 import UserLoginContainer from "./components/Auth/UserLoginContainer";
@@ -15,7 +15,7 @@ const App = () => {
     <BrowserRouter>
       <HeaderContainer />
       <Switch>
-        <AuthRoute exact path="/" component={Main} />
+        <Route exact path="/" component={MainContainer} />
         <AuthRoute exact path="/user/signup" component={UserSignupContainer} />
         <AuthRoute exact path="/user/login" component={UserLoginContainer} />
         <ProtectedRoute

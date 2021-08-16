@@ -18,7 +18,7 @@ const PostsReducer = (
       newState.user = action.posts.data;
       return newState;
     case RECEIVE_NEW_POST:
-      newState.new = action.posts.data;
+      newState.new = action.post.data;
       return newState;
     default:
       return state;

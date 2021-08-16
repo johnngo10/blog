@@ -1,36 +1,39 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { withRouter } from "react-router-dom";
 
-const MainPage = () => {
+const Main = (props) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("/api/post")
-      .then((response) => setPosts(response.data))
-      .catch((error) => {
-        console.log(error);
-      });
+    props.fetchPosts();
+  }, [props.posts]);
+
+  // Post doesn't update on main page after creating a post
+
+  useEffect(() => {
+    setPosts(props.posts);
   }, []);
 
   return (
     <div>
-      {posts.map((value, index) => {
-        return (
-          <div key={index}>
-            <p>{value.title}</p>
-            <p>{value.author.username}</p>
-            <p>{value.date}</p>
-          </div>
-        );
-      })}
-      {/* <div>
-        <p>Title of the post</p>
-        <p>Author's name</p>
-        <p>28 Jan 2021</p>
-      </div> */}
+      {posts.length === 0 ? (
+        "There are no Posts"
+      ) : (
+        <div>
+          <h2>Main Page</h2>
+          {props.posts.map((value, index) => {
+            return (
+              <div key={index}>
+                <p>{value.title}</p>
+                <p>{value.author.username}</p>
+                <p>{value.date}</p>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
 
-export default MainPage;
+export default withRouter(Main);

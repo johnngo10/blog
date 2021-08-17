@@ -2,10 +2,11 @@ import {
   RECEIVE_POSTS,
   RECEIVE_USER_POSTS,
   RECEIVE_NEW_POST,
+  RECEIVE_POST,
 } from "../actions/post_actions";
 
 const PostsReducer = (
-  state = { all: {}, user: {}, new: undefined },
+  state = { all: {}, user: {}, new: undefined, post: {} },
   action
 ) => {
   Object.freeze(state);
@@ -19,6 +20,9 @@ const PostsReducer = (
       return newState;
     case RECEIVE_NEW_POST:
       newState.new = action.post.data;
+      return newState;
+    case RECEIVE_POST:
+      newState.post = action.post.data;
       return newState;
     default:
       return state;

@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { withRouter, useParams } from "react-router-dom";
 
-const Post = () => {
+const Post = (props) => {
+  const { id } = useParams();
+
+  useEffect(() => {
+    props.fetchPost(id);
+  }, []);
+
+  const { title, author, content, date, comments } = props.post;
+
   return (
     <div>
-      <h2>title of the post</h2>
-      <p>Author: Tim Tim, April 7, 2014</p>
-      <p>The content of the article</p>
+      <h2>{title}</h2>
+      <p>
+        Author: {author ? author.username : "unknown"}, {date}
+      </p>
+      <p>{content}</p>
       <div>
         <h3>Comments</h3>
         <form method="POST" action="">
@@ -29,4 +40,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default withRouter(Post);

@@ -21,6 +21,7 @@ exports.post_user_get = (req, res) => {
 exports.post_id_get = (req, res) => {
   const { id } = req.params;
   Post.findById(id)
+    .populate("author")
     .then((post) => res.json(post))
     .catch((err) => {
       res.status(404).json({

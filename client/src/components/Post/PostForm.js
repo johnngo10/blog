@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 const PostForm = (props) => {
   const [formData, setFormData] = useState({
@@ -50,7 +50,7 @@ const PostForm = (props) => {
       </fieldset>
       <fieldset>
         <input type="submit" value="Publish"></input>
-        <a href="/">Cancel</a>
+        <Link to={"/"}>Cancel</Link>
       </fieldset>
     </form>
   );

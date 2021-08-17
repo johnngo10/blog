@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Header = (props) => {
   const logoutUser = (e) => {
@@ -11,17 +11,17 @@ const Header = (props) => {
     if (props.loggedIn) {
       return (
         <nav>
-          <Link to={"/"}>Home</Link>
-          <Link to={"/post/create"}>Create Post</Link>
+          <NavLink to={"/"}>Home</NavLink>
+          <NavLink to={"/post/create"}>Create Post</NavLink>
           <button onClick={logoutUser}>Logout</button>
         </nav>
       );
     } else {
       return (
         <nav>
-          <Link to={"/"}>Home</Link>
-          <Link to={"/user/signup"}>Signup</Link>
-          <Link to={"/user/login"}>Login</Link>
+          <NavLink to={"/"}>Home</NavLink>
+          <NavLink to={"/user/signup"}>Signup</NavLink>
+          <NavLink to={"/user/login"}>Login</NavLink>
         </nav>
       );
     }

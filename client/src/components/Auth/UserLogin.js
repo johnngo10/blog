@@ -16,7 +16,7 @@ const UserLogin = (props) => {
     }
 
     setFormData({ ...formData, errors: props.errors });
-  }, [props.currentUser]);
+  }, [props.errors]);
 
   // const componentWillReceiveProps = (nextProps) => {
   //   if (nextProps.currentUser === true) {
@@ -77,7 +77,7 @@ const UserLogin = (props) => {
       </fieldset>
       <fieldset>
         <input type="submit" value="Login"></input>
-        <a href="/">Cancel</a>
+        <Link to={"/"}>Cancel</Link>
       </fieldset>
       {renderErrors()}
     </form>

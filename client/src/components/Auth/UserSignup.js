@@ -11,15 +11,13 @@ const UserSignup = (props) => {
 
   const { username, password, confirmPassword, errors } = formData;
 
-  const clearedErrors = false;
-
   useEffect(() => {
     if (props.signedIn === true) {
       props.history.push("/user/login");
     }
 
     setFormData({ ...formData, errors: props.errors });
-  }, [props.signedIn]);
+  }, [props.errors]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -79,7 +77,7 @@ const UserSignup = (props) => {
       </fieldset>
       <fieldset>
         <input type="submit" value="Sign Up"></input>
-        <a href="/">Cancel</a>
+        <Link to={"/"}>Cancel</Link>
       </fieldset>
       {renderErrors()}
     </form>

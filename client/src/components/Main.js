@@ -1,33 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 const Main = (props) => {
   const [posts, setPosts] = useState([]);
 
+  // Problem is because RECEIVE_POSTS action is being dispatched before RECEIVE_NEW_POST. Figure out a way to redirect to main page after RECEIVE_POSTS action is dispatched
+
   useEffect(() => {
     props.fetchPosts();
-  }, [props.posts]);
-
-  // Post doesn't update on main page after creating a post
-
-  useEffect(() => {
-    setPosts(props.posts);
+    console.log(props);
   }, []);
 
   return (
     <div>
-      {posts.length === 0 ? (
+      {props.posts.length === 0 ? (
         "There are no Posts"
       ) : (
         <div>
           <h2>Main Page</h2>
           {props.posts.map((value, index) => {
             return (
-              <div key={index}>
-                <p>{value.title}</p>
-                <p>{value.author.username}</p>
-                <p>{value.date}</p>
-              </div>
+              <Link to={`/post/${value._id}`} key={index}>
+                <div>
+                  <p>{value.title}</p>
+                  <p>{value.author.username}</p>
+                  <p>{value.date}</p>
+                </div>
+              </Link>
             );
           })}
         </div>

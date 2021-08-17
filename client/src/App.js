@@ -7,7 +7,7 @@ import MainContainer from "./components/MainContainer";
 import HeaderContainer from "./components/HeaderContainer";
 import UserSignupContainer from "./components/Auth/UserSignupContainer";
 import UserLoginContainer from "./components/Auth/UserLoginContainer";
-import Post from "./components/Post/Post";
+import PostContainer from "./components/Post/PostContainer";
 import PostFormContainer from "./components/Post/PostFormContainer";
 
 const App = () => {
@@ -23,7 +23,7 @@ const App = () => {
           path="/post/create"
           component={PostFormContainer}
         />
-        <ProtectedRoute exact path="/post/:id" component={Post} />
+        <Route exact path="/post/:id" component={PostContainer} />
       </Switch>
     </BrowserRouter>
   );

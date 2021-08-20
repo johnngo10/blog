@@ -3,27 +3,48 @@ import {
   RECEIVE_USER_POSTS,
   RECEIVE_NEW_POST,
   RECEIVE_POST,
+  RECEIVE_NEW_COMMENT,
 } from "../actions/post_actions";
 
-const PostsReducer = (
-  state = { all: {}, user: {}, new: undefined, post: {} },
-  action
-) => {
-  Object.freeze(state);
-  let newState = Object.assign({}, state);
+const initialState = {
+  all: [],
+  user: {},
+  new: undefined,
+  post: {},
+  comment: {},
+};
+
+// state = { all: {}, user: {}, new: undefined, post: {}, comment: {} }
+// Object.freeze(state);
+// let newState = Object.assign({}, state);
+
+const PostsReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_POSTS:
-      newState.all = action.posts.data;
-      return newState;
+      return {
+        ...state,
+        all: action.payload,
+      };
     case RECEIVE_USER_POSTS:
-      newState.user = action.posts.data;
-      return newState;
+      return {
+        ...state,
+        user: action.payload,
+      };
     case RECEIVE_NEW_POST:
-      newState.new = action.post.data;
-      return newState;
+      return {
+        ...state,
+        new: [action.payload, ...state.all],
+      };
     case RECEIVE_POST:
-      newState.post = action.post.data;
-      return newState;
+      return {
+        ...state,
+        post: action.payload,
+      };
+    case RECEIVE_NEW_COMMENT:
+      return {
+        ...state,
+        post: { ...state.post, comments: action.payload },
+      };
     default:
       return state;
   }

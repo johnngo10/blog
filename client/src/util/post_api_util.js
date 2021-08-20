@@ -15,3 +15,7 @@ export const writePost = (data) => {
 export const getPost = (postId) => {
   return axios.get(`/api/post/${postId}`);
 };
+
+export const writeComment = (postId, data) => {
+  return axios.post(`/api/post/${postId}/comment/create`, data);
+};

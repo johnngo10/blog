@@ -3,11 +3,11 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { AuthRoute, ProtectedRoute } from "./util/route_util";
 import "./App.css";
 
-import MainContainer from "./components/MainContainer";
+import Main from "./components/Main";
 import HeaderContainer from "./components/HeaderContainer";
 import UserSignupContainer from "./components/Auth/UserSignupContainer";
 import UserLoginContainer from "./components/Auth/UserLoginContainer";
-import PostContainer from "./components/Post/PostContainer";
+import Post from "./components/Post/Post";
 import PostFormContainer from "./components/Post/PostFormContainer";
 
 const App = () => {
@@ -15,7 +15,7 @@ const App = () => {
     <BrowserRouter>
       <HeaderContainer />
       <Switch>
-        <Route exact path="/" component={MainContainer} />
+        <Route exact path="/" component={Main} />
         <AuthRoute exact path="/user/signup" component={UserSignupContainer} />
         <AuthRoute exact path="/user/login" component={UserLoginContainer} />
         <ProtectedRoute
@@ -23,7 +23,7 @@ const App = () => {
           path="/post/create"
           component={PostFormContainer}
         />
-        <Route exact path="/post/:id" component={PostContainer} />
+        <Route exact path="/post/:id" component={Post} />
       </Switch>
     </BrowserRouter>
   );

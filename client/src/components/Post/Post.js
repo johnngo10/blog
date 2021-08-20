@@ -1,14 +1,47 @@
-import React, { useEffect } from "react";
-import { withRouter, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { withRouter, useParams, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as postActions from "../../actions/post_actions";
 
-const Post = (props) => {
+// When adding comments, component does not update in real time
+// When logging out while on post page, error occurs
+// No longer need to use connect or mapstatetoprops or post_container
+
+const Post = () => {
+  const [formData, setFormData] = useState({ comment: "" });
   const { id } = useParams();
+  const dispatch = useDispatch();
+
+  const state = useSelector((state) => state);
+  const { title, author, date, content, comments } = state.posts.post;
+  const { isAuthenticated } = state.session;
+
+  const { fetchPost, composeComment } = bindActionCreators(
+    postActions,
+    dispatch
+  );
 
   useEffect(() => {
-    props.fetchPost(id);
+    fetchPost(id);
   }, []);
 
-  const { title, author, content, date, comments } = props.post;
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let comment = { comment: formData.comment };
+
+    composeComment(id, comment);
+    clear();
+  };
+
+  const clear = () => {
+    setFormData({ comment: "" });
+  };
 
   return (
     <div>
@@ -19,25 +52,39 @@ const Post = (props) => {
       <p>{content}</p>
       <div>
         <h3>Comments</h3>
-        <form method="POST" action="">
-          <textarea placeholder="Add a comment.."></textarea>
-          <input type="submit" value="Add Comment"></input>
-        </form>
+        {!isAuthenticated ? (
+          <Link to={"/user/login"}>Log in to add comment</Link>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <textarea
+              name="comment"
+              type="text"
+              placeholder="Add a comment.."
+              value={formData.comment}
+              onChange={(e) => handleChange(e)}
+              required
+            ></textarea>
+            <input type="submit" value="Add Comment"></input>
+          </form>
+        )}
         <ul>
-          <li>
-            <p>Name</p>
-            <p>Jan 8, 2015</p>
-            <p>The comment...</p>
-          </li>
-          <li>
-            <p>Name</p>
-            <p>Jan 8, 2015</p>
-            <p>The comment...</p>
-          </li>
+          {comments === undefined
+            ? "No Comments"
+            : comments.length === 0
+            ? "No Comments"
+            : comments.map((value, index) => {
+                return (
+                  <li key={index}>
+                    <p>{value.author}</p>
+                    <p>{value.date}</p>
+                    <p>{value.comment}</p>
+                  </li>
+                );
+              })}
         </ul>
       </div>
     </div>
   );
 };
 
-export default withRouter(Post);
+export default Post;

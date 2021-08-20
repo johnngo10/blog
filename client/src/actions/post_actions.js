@@ -3,49 +3,86 @@ import {
   getUserPosts,
   writePost,
   getPost,
+  writeComment,
 } from "../util/post_api_util";
 
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
 export const RECEIVE_USER_POSTS = "RECEIVE_USER_POSTS";
 export const RECEIVE_NEW_POST = "RECEIVE_NEW_POST";
 export const RECEIVE_POST = "RECEIVE_POST";
+export const RECEIVE_NEW_COMMENT = "RECEIVE_NEW_COMMENT";
 
-export const receivePosts = (posts) => ({
+export const receivePosts = (data) => ({
   type: RECEIVE_POSTS,
-  posts,
+  payload: data,
 });
 
-export const receiveUserPosts = (posts) => ({
+export const receiveUserPosts = (data) => ({
   type: RECEIVE_USER_POSTS,
-  posts,
+  payload: data,
 });
 
-export const receiveNewPost = (post) => ({
+export const receiveNewPost = (data) => ({
   type: RECEIVE_NEW_POST,
-  post,
+  payload: data,
 });
 
-export const receivePost = (post) => ({
+export const receivePost = (data) => ({
   type: RECEIVE_POST,
-  post,
+  payload: data,
 });
 
-export const fetchPosts = () => (dispatch) =>
-  getPosts()
-    .then((posts) => dispatch(receivePosts(posts)))
-    .catch((err) => console.log(err));
+export const receiveNewComment = (comment) => ({
+  type: RECEIVE_NEW_COMMENT,
+  comment,
+});
 
-export const fetchUserPosts = (id) => (dispatch) =>
-  getUserPosts(id)
-    .then((posts) => dispatch(receiveUserPosts(posts)))
-    .catch((err) => console.log(err));
+export const fetchPosts = () => async (dispatch) => {
+  try {
+    const { data } = await getPosts();
 
-export const composePost = (data) => (dispatch) =>
-  writePost(data)
-    .then((post) => dispatch(receiveNewPost(post)))
-    .catch((err) => console.log(err));
+    dispatch(receivePosts(data));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
-export const fetchPost = (postId) => (dispatch) =>
-  getPost(postId)
-    .then((post) => dispatch(receivePost(post)))
-    .catch((err) => console.log(err));
+export const fetchUserPosts = (id) => async (dispatch) => {
+  try {
+    const { data } = await getUserPosts(id);
+
+    dispatch(receiveUserPosts(data));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const composePost = (post) => async (dispatch) => {
+  try {
+    const { data } = await writePost(post);
+
+    dispatch(receiveNewPost(data));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const fetchPost = (postId) => async (dispatch) => {
+  try {
+    const { data } = await getPost(postId);
+
+    dispatch(receivePost(data));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const composeComment = (postId, comment) => async (dispatch) => {
+  try {
+    const { data } = await writeComment(postId, comment);
+
+    dispatch(receiveNewComment(data));
+  } catch (error) {
+    console.log(error.message);
+  }
+};

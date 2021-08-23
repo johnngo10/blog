@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as postActions from "../../actions/post_actions";
 
-const PostForm = (props) => {
+const PostForm = () => {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
     newPost: "",
   });
-
   const { title, content } = formData;
+
+  const dispatch = useDispatch();
+  const { composePost } = bindActionCreators(postActions, dispatch);
+
+  const state = useSelector((state) => state);
 
   const history = useHistory();
 
@@ -20,7 +27,7 @@ const PostForm = (props) => {
     e.preventDefault();
     let post = { title, content };
 
-    props.composePost(post);
+    composePost(post);
     history.push("/");
   };
 

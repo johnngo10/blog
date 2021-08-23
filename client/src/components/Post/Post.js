@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { withRouter, useParams, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as postActions from "../../actions/post_actions";
 
@@ -42,6 +41,8 @@ const Post = () => {
   const clear = () => {
     setFormData({ comment: "" });
   };
+
+  console.log(state);
 
   return (
     <div>

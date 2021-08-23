@@ -1,30 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { withRouter, Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as sessionActions from "../../actions/session_actions";
 
-const UserLogin = (props) => {
+const UserLogin = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     errors: {},
   });
-
   const { username, password, errors } = formData;
 
+  const state = useSelector((state) => state);
+  const stateErrors = state.errors.session;
+  const { isAuthenticated } = state.session;
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { login } = bindActionCreators(sessionActions, dispatch);
+
   useEffect(() => {
-    if (props.currentUser === true) {
-      props.history.push("/");
+    if (isAuthenticated) {
+      history.push("/");
     }
 
-    setFormData({ ...formData, errors: props.errors });
-  }, [props.errors]);
-
-  // const componentWillReceiveProps = (nextProps) => {
-  //   if (nextProps.currentUser === true) {
-  //     this.props.history.push("/");
-  //   }
-
-  //   setFormData({ ...formData, errors: nextProps.errors });
-  // };
+    setFormData({ ...formData, errors: stateErrors });
+  }, [errors]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,7 +39,7 @@ const UserLogin = (props) => {
       password,
     };
 
-    props.login(user);
+    login(user);
   };
 
   const renderErrors = () => {
@@ -84,4 +86,4 @@ const UserLogin = (props) => {
   );
 };
 
-export default withRouter(UserLogin);
+export default UserLogin;

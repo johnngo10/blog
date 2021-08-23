@@ -9,14 +9,10 @@ import {
 const initialState = {
   all: [],
   user: {},
-  new: undefined,
+  newPosts: undefined,
   post: {},
   comment: {},
 };
-
-// state = { all: {}, user: {}, new: undefined, post: {}, comment: {} }
-// Object.freeze(state);
-// let newState = Object.assign({}, state);
 
 const PostsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -33,7 +29,7 @@ const PostsReducer = (state = initialState, action) => {
     case RECEIVE_NEW_POST:
       return {
         ...state,
-        new: [action.payload, ...state.all],
+        newPosts: [action.payload, ...state.all],
       };
     case RECEIVE_POST:
       return {

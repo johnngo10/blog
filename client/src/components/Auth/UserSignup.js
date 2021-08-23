@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory, withRouter } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as sessionActions from "../../actions/session_actions";
 
-const UserSignup = (props) => {
+const UserSignup = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     confirmPassword: "",
     errors: {},
   });
-
   const { username, password, confirmPassword, errors } = formData;
 
-  useEffect(() => {
-    if (props.signedIn === true) {
-      props.history.push("/user/login");
-    }
+  const state = useSelector((state) => state);
+  const stateErrors = state.errors.session;
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-    setFormData({ ...formData, errors: props.errors });
-  }, [props.errors]);
+  const { signup } = bindActionCreators(sessionActions, dispatch);
+
+  useEffect(() => {
+    setFormData({ ...formData, errors: stateErrors });
+  }, [errors]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,7 +32,7 @@ const UserSignup = (props) => {
     e.preventDefault();
     let user = { username, password, confirmPassword };
 
-    props.signup(user, props.history);
+    signup(user, history.push("/user/login"));
   };
 
   const renderErrors = () => {
@@ -84,4 +89,4 @@ const UserSignup = (props) => {
   );
 };
 
-export default withRouter(UserSignup);
+export default UserSignup;

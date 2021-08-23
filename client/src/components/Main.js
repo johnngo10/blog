@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { withRouter, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as postActions from "../actions/post_actions";
 
@@ -9,14 +8,14 @@ const Main = () => {
   // const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
 
-  const state = useSelector((state) => state.posts);
-  const { all } = state;
+  const state = useSelector((state) => state);
+  const { all, newPosts } = state.posts;
 
   const { fetchPosts } = bindActionCreators(postActions, dispatch);
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [newPosts]);
 
   console.log(state);
 
@@ -46,4 +45,4 @@ const Main = () => {
   );
 };
 
-export default withRouter(Main);
+export default Main;

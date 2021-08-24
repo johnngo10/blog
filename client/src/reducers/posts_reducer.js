@@ -39,7 +39,10 @@ const PostsReducer = (state = initialState, action) => {
     case RECEIVE_NEW_COMMENT:
       return {
         ...state,
-        post: { ...state.post, comments: action.payload },
+        post: {
+          ...state.post,
+          comments: [action.payload, ...state.post.comments],
+        },
       };
     default:
       return state;

@@ -42,8 +42,6 @@ const Post = () => {
     setFormData({ comment: "" });
   };
 
-  console.log(state);
-
   return (
     <div>
       <h2>{title}</h2>

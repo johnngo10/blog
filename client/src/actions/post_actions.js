@@ -34,7 +34,7 @@ export const receivePost = (data) => ({
 
 export const receiveNewComment = (comment) => ({
   type: RECEIVE_NEW_COMMENT,
-  comment,
+  payload: comment,
 });
 
 export const fetchPosts = () => async (dispatch) => {

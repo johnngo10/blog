@@ -13,7 +13,7 @@ const UserLogin = () => {
   const { username, password, errors } = formData;
 
   const state = useSelector((state) => state);
-  const stateErrors = state.errors.session;
+  const { loginErrors } = state.errors.session;
   const { isAuthenticated } = state.session;
 
   const dispatch = useDispatch();
@@ -25,8 +25,8 @@ const UserLogin = () => {
       history.push("/");
     }
 
-    setFormData({ ...formData, errors: stateErrors });
-  }, [errors]);
+    setFormData({ ...formData, errors: loginErrors });
+  }, [state]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -43,13 +43,15 @@ const UserLogin = () => {
   };
 
   const renderErrors = () => {
-    return (
-      <ul>
-        {Object.keys(errors).map((error, i) => (
-          <li key={i}>{errors[error]}</li>
-        ))}
-      </ul>
-    );
+    if (errors !== undefined) {
+      return (
+        <ul>
+          {Object.keys(errors).map((error, i) => (
+            <li key={i}>{errors[error]}</li>
+          ))}
+        </ul>
+      );
+    }
   };
 
   return (

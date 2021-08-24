@@ -14,15 +14,20 @@ const UserSignup = () => {
   const { username, password, confirmPassword, errors } = formData;
 
   const state = useSelector((state) => state);
-  const stateErrors = state.errors.session;
+  const { signupErrors } = state.errors.session;
+  const { isSignedIn } = state.session;
   const dispatch = useDispatch();
   const history = useHistory();
 
   const { signup } = bindActionCreators(sessionActions, dispatch);
 
   useEffect(() => {
-    setFormData({ ...formData, errors: stateErrors });
-  }, [errors]);
+    if (isSignedIn) {
+      history.push("/user/login");
+    }
+
+    setFormData({ ...formData, errors: signupErrors });
+  }, [state]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,17 +37,19 @@ const UserSignup = () => {
     e.preventDefault();
     let user = { username, password, confirmPassword };
 
-    signup(user, history.push("/user/login"));
+    signup(user);
   };
 
   const renderErrors = () => {
-    return (
-      <ul>
-        {Object.keys(errors).map((error, i) => (
-          <li key={i}>{errors[error]}</li>
-        ))}
-      </ul>
-    );
+    if (errors !== undefined) {
+      return (
+        <ul>
+          {Object.keys(errors).map((error, i) => (
+            <li key={i}>{errors[error]}</li>
+          ))}
+        </ul>
+      );
+    }
   };
 
   return (

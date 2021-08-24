@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { withRouter, useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as postActions from "../../actions/post_actions";
-
-// When adding comments, component does not update in real time
-// When logging out while on post page, error occurs
-// No longer need to use connect or mapstatetoprops or post_container
 
 const Post = () => {
   const [formData, setFormData] = useState({ comment: "" });

@@ -39,18 +39,18 @@ const Post = () => {
   };
 
   return (
-    <div>
+    <div className="post-container">
       <h2>{title}</h2>
-      <p>
+      <p className="post-author-date">
         Author: {author ? author.username : "unknown"}, {date}
       </p>
-      <p>{content}</p>
+      <p className="post-content">{content}</p>
       <div>
-        <h3>Comments</h3>
+        <h3>({comments === undefined ? 0 : comments.length}) Comments</h3>
         {!isAuthenticated ? (
           <Link to={"/user/login"}>Log in to add comment</Link>
         ) : (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="comment-form">
             <textarea
               name="comment"
               type="text"
@@ -58,24 +58,33 @@ const Post = () => {
               value={formData.comment}
               onChange={(e) => handleChange(e)}
               required
+              className="comment-textarea"
             ></textarea>
-            <input type="submit" value="Add Comment"></input>
+            <input
+              type="submit"
+              value="Comment"
+              className="comment-submit"
+            ></input>
           </form>
         )}
         <ul>
-          {comments === undefined
-            ? "No Comments"
-            : comments.length === 0
-            ? "No Comments"
-            : comments.map((value, index) => {
-                return (
-                  <li key={index}>
+          {comments === undefined ? (
+            <p className="no-comments">No Comments</p>
+          ) : comments.length === 0 ? (
+            <p className="no-comments">No Comments</p>
+          ) : (
+            comments.map((value, index) => {
+              return (
+                <li key={index} className="comment">
+                  <div className="comment-author-date">
                     <p>{value.author}</p>
-                    <p>{value.date}</p>
-                    <p>{value.comment}</p>
-                  </li>
-                );
-              })}
+                    <p className="comment-date">{value.date}</p>
+                  </div>
+                  <p>{value.comment}</p>
+                </li>
+              );
+            })
+          )}
         </ul>
       </div>
     </div>

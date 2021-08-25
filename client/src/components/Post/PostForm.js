@@ -16,8 +16,16 @@ const PostForm = () => {
   const { composePost } = bindActionCreators(postActions, dispatch);
 
   const state = useSelector((state) => state);
+  const errors = state.errors.posts;
+  const { newPosts } = state.posts;
 
   const history = useHistory();
+
+  // useEffect(() => {
+  //   if (newPosts !== undefined) {
+  //     history.push("/");
+  //   }
+  // });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,8 +39,19 @@ const PostForm = () => {
     history.push("/");
   };
 
+  const renderErrors = () => {
+    return (
+      <ul>
+        {Object.keys(errors).map((error, i) => (
+          <li key={i}>{errors[error]}</li>
+        ))}
+      </ul>
+    );
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="session-form">
+      <h2>Create a post</h2>
       <fieldset>
         <label htmlFor="title">
           Title
@@ -42,6 +61,7 @@ const PostForm = () => {
             value={title}
             onChange={(e) => handleChange(e)}
             required
+            className="session-form-input"
           ></input>
         </label>
         <label htmlFor="content">
@@ -52,13 +72,21 @@ const PostForm = () => {
             value={content}
             onChange={(e) => handleChange(e)}
             required
+            className="form-textarea"
           ></textarea>
         </label>
       </fieldset>
       <fieldset>
-        <input type="submit" value="Publish"></input>
-        <Link to={"/"}>Cancel</Link>
+        <input
+          type="submit"
+          value="Publish"
+          className="session-form-submit"
+        ></input>
+        <Link to={"/"} className="cancel-btn">
+          Cancel
+        </Link>
       </fieldset>
+      {renderErrors()}
     </form>
   );
 };

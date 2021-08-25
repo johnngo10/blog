@@ -10,6 +10,7 @@ export const RECEIVE_POSTS = "RECEIVE_POSTS";
 export const RECEIVE_USER_POSTS = "RECEIVE_USER_POSTS";
 export const RECEIVE_NEW_POST = "RECEIVE_NEW_POST";
 export const RECEIVE_POST = "RECEIVE_POST";
+export const RECEIVE_NEW_POST_ERRORS = "RECEIVE_NEW_POST_ERRORS";
 export const RECEIVE_NEW_COMMENT = "RECEIVE_NEW_COMMENT";
 
 export const receivePosts = (data) => ({
@@ -30,6 +31,11 @@ export const receiveNewPost = (data) => ({
 export const receivePost = (data) => ({
   type: RECEIVE_POST,
   payload: data,
+});
+
+export const receiveNewPostErrors = (error) => ({
+  type: RECEIVE_NEW_POST_ERRORS,
+  payload: error,
 });
 
 export const receiveNewComment = (comment) => ({
@@ -64,6 +70,7 @@ export const composePost = (post) => async (dispatch) => {
     dispatch(receiveNewPost(data));
   } catch (error) {
     console.log(error.message);
+    dispatch(receiveNewPostErrors(error.response.data));
   }
 };
 

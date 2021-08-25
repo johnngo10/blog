@@ -20,18 +20,33 @@ const Header = () => {
     if (isAuthenticated) {
       return (
         <nav>
-          <NavLink to={"/"}>Home</NavLink>
-          <NavLink to={"/post/create"}>Create Post</NavLink>
-          <button onClick={logoutUser}>Logout</button>
-          <div>{user.username}</div>
+          <NavLink to={"/"} className="nav-links">
+            Home
+          </NavLink>
+          <NavLink to={"/post/create"} className="nav-links">
+            Create Post
+          </NavLink>
+          <button onClick={logoutUser} className="logout-btn">
+            Logout
+          </button>
+          <div className="nav-links">
+            <i className="fas fa-user"></i>
+            {user.username}
+          </div>
         </nav>
       );
     } else {
       return (
         <nav>
-          <NavLink to={"/"}>Home</NavLink>
-          <NavLink to={"/user/signup"}>Signup</NavLink>
-          <NavLink to={"/user/login"}>Login</NavLink>
+          <NavLink to={"/"} className="nav-links">
+            Home
+          </NavLink>
+          <NavLink to={"/user/signup"} className="nav-links">
+            Signup
+          </NavLink>
+          <NavLink to={"/user/login"} className="nav-links">
+            Login
+          </NavLink>
         </nav>
       );
     }

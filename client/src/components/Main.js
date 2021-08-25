@@ -22,16 +22,19 @@ const Main = () => {
         "There are no Posts"
       ) : (
         <div>
-          <h2>Main Page</h2>
           {Object.values(all).map((value, index) => {
             return (
-              <Link to={`/post/${value._id}`} key={index}>
-                <div>
-                  <p>{value.title}</p>
-                  <p>{value.author.username}</p>
-                  <p>{value.date}</p>
-                </div>
-              </Link>
+              <div className="card-container">
+                <Link
+                  to={`/post/${value._id}`}
+                  key={index}
+                  className="card-link"
+                >
+                  <p className="card-title">{value.title}</p>
+                  <p className="card-author">Author: {value.author.username}</p>
+                  <p className="card-date">{value.date}</p>
+                </Link>
+              </div>
             );
           })}
         </div>

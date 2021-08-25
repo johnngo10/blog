@@ -55,7 +55,7 @@ const UserLogin = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="session-form">
       <h2>Login</h2>
       <fieldset>
         <label htmlFor="username">
@@ -66,6 +66,7 @@ const UserLogin = () => {
             value={username}
             onChange={(e) => handleChange(e)}
             required
+            className="session-form-input"
           ></input>
         </label>
         <label htmlFor="password">
@@ -76,12 +77,19 @@ const UserLogin = () => {
             value={password}
             onChange={(e) => handleChange(e)}
             required
+            className="session-form-input"
           ></input>
         </label>
       </fieldset>
       <fieldset>
-        <input type="submit" value="Login"></input>
-        <Link to={"/"}>Cancel</Link>
+        <input
+          type="submit"
+          value="Login"
+          className="session-form-submit"
+        ></input>
+        <Link to={"/"} className="cancel-btn">
+          Cancel
+        </Link>
       </fieldset>
       {renderErrors()}
     </form>

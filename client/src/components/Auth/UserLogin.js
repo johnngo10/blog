@@ -45,9 +45,11 @@ const UserLogin = () => {
   const renderErrors = () => {
     if (errors !== undefined) {
       return (
-        <ul>
+        <ul className="form-error-container">
           {Object.keys(errors).map((error, i) => (
-            <li key={i}>{errors[error]}</li>
+            <li key={i} className="form-error">
+              {errors[error]}
+            </li>
           ))}
         </ul>
       );
@@ -81,6 +83,7 @@ const UserLogin = () => {
           ></input>
         </label>
       </fieldset>
+      {renderErrors()}
       <fieldset>
         <input
           type="submit"
@@ -91,7 +94,6 @@ const UserLogin = () => {
           Cancel
         </Link>
       </fieldset>
-      {renderErrors()}
     </form>
   );
 };

@@ -32,6 +32,7 @@ nav {
   border: none;
   font-size: 16px;
   margin: 0 10px 0 10px;
+  cursor: pointer;
 }
 
 .fa-user {
@@ -68,7 +69,7 @@ nav {
 
 /* SESSION FORMS */
 .session-form {
-  margin: 15px;
+  margin: 30px;
 }
 
 .session-form h2 {
@@ -113,6 +114,15 @@ nav {
   margin-left: 10px;
 }
 
+.form-error-container {
+  list-style: none;
+  margin-top: 5px;
+}
+
+.form-error {
+  color: red;
+}
+
 /* POST */
 .post-container {
   margin: 10px;
@@ -133,6 +143,10 @@ nav {
 
 .post-container h3 {
   margin-bottom: 10px;
+}
+
+.comment-container {
+  list-style: none;
 }
 
 .comment-form {
@@ -192,9 +206,38 @@ nav {
   .cards {
     display: flex;
     flex-wrap: wrap;
+    margin: 40px;
   }
 
   .card-container {
-    width: 44.1%;
+    width: 300px;
+  }
+
+  /* SESSION FORMS */
+  .session-form {
+    width: 500px;
+    margin: 30px auto;
+  }
+
+  /* POST */
+  .post-container {
+    margin: 50px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  /* MAIN */
+  .cards {
+    margin: 50px;
+  }
+
+  .card-container {
+    width: 410px;
+  }
+
+  /* POST */
+  .post-container {
+    width: 800px;
+    margin: 50px auto;
   }
 }

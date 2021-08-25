@@ -69,7 +69,7 @@ const Post = () => {
             ></input>
           </form>
         )}
-        <ul>
+        <ul className="comment-container">
           {comments === undefined ? (
             <p className="no-comments">No Comments</p>
           ) : comments.length === 0 ? (

@@ -21,12 +21,6 @@ const PostForm = () => {
 
   const history = useHistory();
 
-  // useEffect(() => {
-  //   if (newPosts !== undefined) {
-  //     history.push("/");
-  //   }
-  // });
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -41,9 +35,11 @@ const PostForm = () => {
 
   const renderErrors = () => {
     return (
-      <ul>
+      <ul className="form-error-container">
         {Object.keys(errors).map((error, i) => (
-          <li key={i}>{errors[error]}</li>
+          <li key={i} className="form-error">
+            {errors[error]}
+          </li>
         ))}
       </ul>
     );
@@ -76,6 +72,7 @@ const PostForm = () => {
           ></textarea>
         </label>
       </fieldset>
+      {renderErrors()}
       <fieldset>
         <input
           type="submit"
@@ -86,7 +83,6 @@ const PostForm = () => {
           Cancel
         </Link>
       </fieldset>
-      {renderErrors()}
     </form>
   );
 };

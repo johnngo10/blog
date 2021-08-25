@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
+import moment from "moment";
 import * as postActions from "../../actions/post_actions";
 
 const Post = () => {
@@ -42,7 +43,8 @@ const Post = () => {
     <div className="post-container">
       <h2>{title}</h2>
       <p className="post-author-date">
-        Author: {author ? author.username : "unknown"}, {date}
+        Author: {author ? author.username : "unknown"},{" "}
+        {moment(date).format("MMMM Do YYYY")}
       </p>
       <p className="post-content">{content}</p>
       <div>
@@ -78,7 +80,9 @@ const Post = () => {
                 <li key={index} className="comment">
                   <div className="comment-author-date">
                     <p>{value.author}</p>
-                    <p className="comment-date">{value.date}</p>
+                    <p className="comment-date">
+                      {moment(value.date).fromNow()}
+                    </p>
                   </div>
                   <p>{value.comment}</p>
                 </li>

@@ -177,4 +177,24 @@ nav {
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
+  color: grey;
+  font-size: 12px;
+}
+
+@media only screen and (min-width: 688px) {
+  /* HEADER */
+  header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* MAIN */
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .card-container {
+    width: 44.1%;
+  }
 }

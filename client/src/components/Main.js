@@ -25,12 +25,8 @@ const Main = () => {
         <div className="cards">
           {Object.values(all).map((value, index) => {
             return (
-              <div className="card-container">
-                <Link
-                  to={`/post/${value._id}`}
-                  key={index}
-                  className="card-link"
-                >
+              <div className="card-container" key={index}>
+                <Link to={`/post/${value._id}`} className="card-link">
                   <p className="card-title">{value.title}</p>
                   <p className="card-author">Author: {value.author.username}</p>
                   <p className="card-date">

@@ -32,4 +32,11 @@ router.post(
   post_controller.post_create_post
 );
 
+// DELETE request for deleting a post
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  post_controller.post_delete
+);
+
 module.exports = router;

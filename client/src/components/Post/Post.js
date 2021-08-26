@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import moment from "moment";
@@ -9,12 +9,13 @@ const Post = () => {
   const [formData, setFormData] = useState({ comment: "" });
   const { id } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const state = useSelector((state) => state);
   const { title, author, date, content, comments } = state.posts.post;
-  const { isAuthenticated } = state.session;
+  const { isAuthenticated, user } = state.session;
 
-  const { fetchPost, composeComment } = bindActionCreators(
+  const { fetchPost, composeComment, deletePost } = bindActionCreators(
     postActions,
     dispatch
   );
@@ -35,6 +36,11 @@ const Post = () => {
     clear();
   };
 
+  const handleDelete = (e) => {
+    deletePost(id);
+    history.push("/");
+  };
+
   const clear = () => {
     setFormData({ comment: "" });
   };
@@ -44,7 +50,19 @@ const Post = () => {
       <h2>{title}</h2>
       <p className="post-author-date">
         Author: {author ? author.username : "unknown"},{" "}
-        {moment(date).format("MMMM Do YYYY")}
+        {moment(date).format("MMMM Do YYYY")}{" "}
+        {author && user ? (
+          user.id === author._id ? (
+            <span className="edit-delete-post">
+              <i className="fas fa-edit"></i>{" "}
+              <i className="fas fa-trash-alt" onClick={handleDelete}></i>
+            </span>
+          ) : (
+            ""
+          )
+        ) : (
+          ""
+        )}
       </p>
       <p className="post-content">{content}</p>
       <div>

@@ -38,7 +38,7 @@ exports.comment_create_post = async (req, res) => {
   const user = await User.findById(req.user.id);
 
   if (!comment) {
-    res.status(400).json({ error: "missing required field" });
+    res.status(400).json({ error: "Missing required field" });
   } else {
     const newComment = new Comment({
       comment,
@@ -58,7 +58,7 @@ exports.post_create_post = async (req, res) => {
   const user = await User.findById(id);
 
   if (!title || !content) {
-    res.status(400).json({ error: "missing required fields" });
+    res.status(400).json({ error: "Missing required fields" });
   } else {
     const newPost = new Post({
       title,
@@ -68,5 +68,28 @@ exports.post_create_post = async (req, res) => {
     newPost.author = user;
     await user.save();
     await newPost.save().then((post) => res.json(post));
+  }
+};
+
+exports.post_delete = async (req, res) => {
+  const postId = req.params.id;
+  const userId = req.user.id;
+
+  try {
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    if (post.author.toString() !== userId) {
+      return res.status(401).json({ error: "User not authorized" });
+    }
+
+    await Post.findByIdAndDelete(postId);
+
+    res.json({ msg: "Post successfully deleted" });
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
   }
 };

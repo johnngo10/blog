@@ -2,6 +2,7 @@ import {
   RECEIVE_POSTS,
   RECEIVE_USER_POSTS,
   RECEIVE_NEW_POST,
+  RECEIVE_DELETE_POST,
   RECEIVE_POST,
   RECEIVE_NEW_COMMENT,
 } from "../actions/post_actions";
@@ -30,6 +31,11 @@ const PostsReducer = (state = initialState, action) => {
       return {
         ...state,
         newPosts: [action.payload, ...state.all],
+      };
+    case RECEIVE_DELETE_POST:
+      return {
+        ...state,
+        all: state.all.filter((post) => post._id !== action.payload),
       };
     case RECEIVE_POST:
       return {

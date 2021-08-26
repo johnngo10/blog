@@ -195,6 +195,21 @@ nav {
   font-size: 12px;
 }
 
+.edit-delete-post {
+  margin-left: 10px;
+}
+
+.fa-trash-alt,
+.fa-edit {
+  cursor: pointer;
+  color: lightgrey;
+}
+
+.fa-trash-alt:hover,
+.fa-edit:hover {
+  color: grey;
+}
+
 @media only screen and (min-width: 688px) {
   /* HEADER */
   header {

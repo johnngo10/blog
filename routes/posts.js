@@ -18,13 +18,6 @@ router.get("/user/:id", post_controller.post_user_get);
 // GET request for a post from an id
 router.get("/:id", post_controller.post_id_get);
 
-// POST request for creating a comment
-router.post(
-  "/:id/comment/create",
-  passport.authenticate("jwt", { session: false }),
-  post_controller.comment_create_post
-);
-
 // POST request for creating a post
 router.post(
   "/create",
@@ -37,6 +30,20 @@ router.delete(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   post_controller.post_delete
+);
+
+// POST request for creating a comment
+router.post(
+  "/:id/comment/create",
+  passport.authenticate("jwt", { session: false }),
+  post_controller.comment_create_post
+);
+
+// DELETE request for deleting a comment
+router.delete(
+  "/:id/comment/:commentId",
+  passport.authenticate("jwt", { session: false }),
+  post_controller.comment_delete
 );
 
 module.exports = router;

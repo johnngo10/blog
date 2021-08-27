@@ -5,6 +5,7 @@ import {
   getPost,
   removePost,
   writeComment,
+  removeComment,
 } from "../util/post_api_util";
 
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
@@ -14,6 +15,7 @@ export const RECEIVE_DELETE_POST = "RECEIVE_DELETE_POST";
 export const RECEIVE_POST = "RECEIVE_POST";
 export const RECEIVE_NEW_POST_ERRORS = "RECEIVE_NEW_POST_ERRORS";
 export const RECEIVE_NEW_COMMENT = "RECEIVE_NEW_COMMENT";
+export const RECEIVE_DELETE_COMMENT = "RECEIVE_DELETE_COMMENT";
 
 export const receivePosts = (data) => ({
   type: RECEIVE_POSTS,
@@ -48,6 +50,11 @@ export const receiveNewPostErrors = (error) => ({
 export const receiveNewComment = (comment) => ({
   type: RECEIVE_NEW_COMMENT,
   payload: comment,
+});
+
+export const receiveDeleteComment = (id) => ({
+  type: RECEIVE_DELETE_COMMENT,
+  payload: id,
 });
 
 export const fetchPosts = () => async (dispatch) => {
@@ -106,6 +113,16 @@ export const composeComment = (postId, comment) => async (dispatch) => {
     const { data } = await writeComment(postId, comment);
 
     dispatch(receiveNewComment(data));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const deleteComment = (postId, commentId) => async (dispatch) => {
+  try {
+    await removeComment(postId, commentId);
+
+    dispatch(receiveDeleteComment(commentId));
   } catch (error) {
     console.log(error.message);
   }

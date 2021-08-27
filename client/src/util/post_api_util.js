@@ -23,3 +23,7 @@ export const removePost = (id) => {
 export const writeComment = (postId, data) => {
   return axios.post(`/api/post/${postId}/comment/create`, data);
 };
+
+export const removeComment = (postId, commentId) => {
+  return axios.delete(`/api/post/${postId}/comment/${commentId}`);
+};

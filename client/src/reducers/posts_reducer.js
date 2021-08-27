@@ -5,6 +5,7 @@ import {
   RECEIVE_DELETE_POST,
   RECEIVE_POST,
   RECEIVE_NEW_COMMENT,
+  RECEIVE_DELETE_COMMENT,
 } from "../actions/post_actions";
 
 const initialState = {
@@ -48,6 +49,16 @@ const PostsReducer = (state = initialState, action) => {
         post: {
           ...state.post,
           comments: [action.payload, ...state.post.comments],
+        },
+      };
+    case RECEIVE_DELETE_COMMENT:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: state.post.comments.filter(
+            (comment) => comment._id !== action.payload
+          ),
         },
       };
     default:

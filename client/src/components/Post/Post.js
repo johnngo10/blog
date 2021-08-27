@@ -15,10 +15,8 @@ const Post = () => {
   const { title, author, date, content, comments } = state.posts.post;
   const { isAuthenticated, user } = state.session;
 
-  const { fetchPost, composeComment, deletePost } = bindActionCreators(
-    postActions,
-    dispatch
-  );
+  const { fetchPost, composeComment, deletePost, deleteComment } =
+    bindActionCreators(postActions, dispatch);
 
   useEffect(() => {
     fetchPost(id);
@@ -36,9 +34,13 @@ const Post = () => {
     clear();
   };
 
-  const handleDelete = (e) => {
+  const handlePostDelete = (e) => {
     deletePost(id);
     history.push("/");
+  };
+
+  const handleCommentDelete = (commentId) => {
+    deleteComment(id, commentId);
   };
 
   const clear = () => {
@@ -55,7 +57,7 @@ const Post = () => {
           user.id === author._id ? (
             <span className="edit-delete-post">
               <i className="fas fa-edit"></i>{" "}
-              <i className="fas fa-trash-alt" onClick={handleDelete}></i>
+              <i className="fas fa-trash-alt" onClick={handlePostDelete}></i>
             </span>
           ) : (
             ""
@@ -98,9 +100,19 @@ const Post = () => {
                 <li key={index} className="comment">
                   <div className="comment-author-date">
                     <p>{value.author}</p>
-                    <p className="comment-date">
-                      {moment(value.date).fromNow()}
-                    </p>
+                    <div className="date-close-container">
+                      <p className="comment-date">
+                        {moment(value.date).fromNow()}
+                      </p>
+                      {value.author === user.username ? (
+                        <i
+                          className="fas fa-times"
+                          onClick={(e) => handleCommentDelete(value._id)}
+                        ></i>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </div>
                   <p>{value.comment}</p>
                 </li>

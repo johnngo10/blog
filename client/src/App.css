@@ -169,6 +169,7 @@ nav {
   padding: 11px;
   margin-left: 5px;
   font-size: 16px;
+  cursor: pointer;
 }
 
 .no-comments {
@@ -200,14 +201,25 @@ nav {
 }
 
 .fa-trash-alt,
-.fa-edit {
+.fa-edit,
+.fa-times {
   cursor: pointer;
   color: lightgrey;
 }
 
+.fa-times {
+  margin-left: 10px;
+}
+
 .fa-trash-alt:hover,
-.fa-edit:hover {
+.fa-edit:hover,
+.fa-times:hover {
   color: grey;
+}
+
+.date-close-container {
+  display: flex;
+  align-items: center;
 }
 
 @media only screen and (min-width: 688px) {

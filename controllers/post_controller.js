@@ -51,6 +51,36 @@ exports.post_create_post = async (req, res) => {
   }
 };
 
+exports.post_edit_patch = async (req, res) => {
+  const postId = req.params.id;
+  const userId = req.user.id;
+  const { title, content } = req.body;
+
+  try {
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    if (post.author.toString() !== userId) {
+      return res.status(401).json({ error: "User not authorized" });
+    }
+
+    const updatedPost = { title, content };
+
+    const newPost = await Post.findByIdAndUpdate(postId, updatedPost, {
+      new: true,
+    })
+      .populate("author")
+      .populate("comments");
+
+    res.json(newPost);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
 exports.post_delete = async (req, res) => {
   const postId = req.params.id;
   const userId = req.user.id;

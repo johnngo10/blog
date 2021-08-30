@@ -39,6 +39,10 @@ const Post = () => {
     history.push("/");
   };
 
+  const handlePostEdit = (e) => {
+    history.push(`/post/${id}/edit`);
+  };
+
   const handleCommentDelete = (commentId) => {
     deleteComment(id, commentId);
   };
@@ -56,7 +60,7 @@ const Post = () => {
         {author && user ? (
           user.id === author._id ? (
             <span className="edit-delete-post">
-              <i className="fas fa-edit"></i>{" "}
+              <i className="fas fa-edit" onClick={handlePostEdit}></i>{" "}
               <i className="fas fa-trash-alt" onClick={handlePostDelete}></i>
             </span>
           ) : (

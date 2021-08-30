@@ -25,6 +25,13 @@ router.post(
   post_controller.post_create_post
 );
 
+// PATCH request for editing post
+router.patch(
+  "/:id/edit",
+  passport.authenticate("jwt", { session: false }),
+  post_controller.post_edit_patch
+);
+
 // DELETE request for deleting a post
 router.delete(
   "/:id",

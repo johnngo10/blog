@@ -3,6 +3,7 @@ import {
   getUserPosts,
   writePost,
   getPost,
+  updatePost,
   removePost,
   writeComment,
   removeComment,
@@ -13,6 +14,7 @@ export const RECEIVE_USER_POSTS = "RECEIVE_USER_POSTS";
 export const RECEIVE_NEW_POST = "RECEIVE_NEW_POST";
 export const RECEIVE_DELETE_POST = "RECEIVE_DELETE_POST";
 export const RECEIVE_POST = "RECEIVE_POST";
+export const RECEIVE_EDIT_POST = "RECEIVE_EDIT_POST";
 export const RECEIVE_NEW_POST_ERRORS = "RECEIVE_NEW_POST_ERRORS";
 export const RECEIVE_NEW_COMMENT = "RECEIVE_NEW_COMMENT";
 export const RECEIVE_DELETE_COMMENT = "RECEIVE_DELETE_COMMENT";
@@ -29,6 +31,11 @@ export const receiveUserPosts = (data) => ({
 
 export const receiveNewPost = (data) => ({
   type: RECEIVE_NEW_POST,
+  payload: data,
+});
+
+export const receiveEditPost = (data) => ({
+  type: RECEIVE_EDIT_POST,
   payload: data,
 });
 
@@ -103,6 +110,16 @@ export const deletePost = (id) => async (dispatch) => {
     await removePost(id);
 
     dispatch(receiveDeletePost(id));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const editPost = (id, post) => async (dispatch) => {
+  try {
+    const { data } = await updatePost(id, post);
+
+    dispatch(receiveEditPost(data));
   } catch (error) {
     console.log(error.message);
   }

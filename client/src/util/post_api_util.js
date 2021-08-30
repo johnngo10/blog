@@ -16,6 +16,10 @@ export const getPost = (postId) => {
   return axios.get(`/api/post/${postId}`);
 };
 
+export const updatePost = (postId, data) => {
+  return axios.patch(`/api/post/${postId}/edit`, data);
+};
+
 export const removePost = (id) => {
   return axios.delete(`/api/post/${id}`);
 };

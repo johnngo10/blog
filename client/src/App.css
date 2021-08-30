@@ -9,7 +9,7 @@
 /* HEADER */
 header {
   text-align: center;
-  padding: 20px;
+  padding: 20px 70px;
   background-color: #407294;
   color: #f4f4f4f4;
 }
@@ -37,6 +37,7 @@ nav {
 
 .fa-user {
   margin-right: 4px;
+  text-decoration: none;
 }
 
 /* MAIN */
@@ -157,7 +158,7 @@ nav {
 
 .comment-textarea {
   resize: none;
-  width: 70%;
+  width: 90%;
   padding: 10px;
   font-size: 16px;
   height: 40px;

@@ -29,10 +29,12 @@ const Header = () => {
           <button onClick={logoutUser} className="logout-btn">
             Logout
           </button>
-          <div className="nav-links">
-            <i className="fas fa-user"></i>
-            {user.username}
-          </div>
+          <NavLink to={`/post/user/${user.id}`} className="nav-links">
+            <div>
+              <i className="fas fa-user"></i>
+              {user.username}
+            </div>
+          </NavLink>
         </nav>
       );
     } else {

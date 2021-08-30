@@ -13,6 +13,8 @@ exports.post_get = (req, res) => {
 exports.post_user_get = (req, res) => {
   const { id } = req.params;
   Post.find({ author: id })
+    .sort({ date: -1 })
+    .populate("author")
     .then((posts) => res.json(posts))
     .catch((err) =>
       res.status(404).json({ error: "No posts found from that user" })

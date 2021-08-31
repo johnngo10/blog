@@ -15,6 +15,7 @@ const UserPosts = () => {
 
   const state = useSelector((state) => state);
   const posts = state.posts.user;
+  const { loading } = state.posts;
 
   const { fetchUserPosts } = bindActionCreators(postActions, dispatch);
 
@@ -46,22 +47,28 @@ const UserPosts = () => {
 
   return (
     <div className="main-container">
-      {Object.values(posts).length === 0 ? (
-        <div className="no-post-message">There are no posts</div>
+      {loading === true || posts === null ? (
+        <div className="no-post-message">Loading...</div>
+      ) : Object.values(posts).length === 0 ? (
+        <div className="no-post-message">There are no posts...</div>
       ) : (
         <div className="cards">{displayPosts}</div>
       )}
-      <ReactPaginate
-        previousLabel={"Previous"}
-        nextLabel={"Next"}
-        pageCount={pageCount}
-        onPageChange={changePage}
-        containerClassName={"pagination-btn"}
-        previousLinkClassName={"previous-btn"}
-        nextLinkClassName={"next-btn"}
-        disabledClassName={"pagination-disabled"}
-        activeClassName={"pagination-active"}
-      />
+      {Object.values(posts).length === 0 ? (
+        ""
+      ) : (
+        <ReactPaginate
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          pageCount={pageCount}
+          onPageChange={changePage}
+          containerClassName={"pagination-btn"}
+          previousLinkClassName={"previous-btn"}
+          nextLinkClassName={"next-btn"}
+          disabledClassName={"pagination-disabled"}
+          activeClassName={"pagination-active"}
+        />
+      )}
     </div>
   );
 };

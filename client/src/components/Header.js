@@ -57,7 +57,7 @@ const Header = () => {
   return (
     <header>
       <NavLink to={"/"} className="logo">
-        <h1>Blogbite</h1>
+        <h1>BlogByte</h1>
       </NavLink>
       {getLinks()}
     </header>

@@ -15,6 +15,7 @@ const initialState = {
   newPosts: undefined,
   post: {},
   comment: {},
+  loading: true,
 };
 
 const PostsReducer = (state = initialState, action) => {
@@ -23,31 +24,37 @@ const PostsReducer = (state = initialState, action) => {
       return {
         ...state,
         all: action.payload,
+        loading: false,
       };
     case RECEIVE_USER_POSTS:
       return {
         ...state,
         user: action.payload,
+        loading: false,
       };
     case RECEIVE_NEW_POST:
       return {
         ...state,
         newPosts: [action.payload, ...state.all],
+        loading: false,
       };
     case RECEIVE_DELETE_POST:
       return {
         ...state,
         all: state.all.filter((post) => post._id !== action.payload),
+        loading: false,
       };
     case RECEIVE_EDIT_POST:
       return {
         ...state,
         post: action.payload,
+        loading: false,
       };
     case RECEIVE_POST:
       return {
         ...state,
         post: action.payload,
+        loading: false,
       };
     case RECEIVE_NEW_COMMENT:
       return {
@@ -56,6 +63,7 @@ const PostsReducer = (state = initialState, action) => {
           ...state.post,
           comments: [action.payload, ...state.post.comments],
         },
+        loading: false,
       };
     case RECEIVE_DELETE_COMMENT:
       return {
@@ -66,6 +74,7 @@ const PostsReducer = (state = initialState, action) => {
             (comment) => comment._id !== action.payload
           ),
         },
+        loading: false,
       };
     default:
       return state;

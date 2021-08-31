@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -17,7 +17,6 @@ const PostForm = () => {
 
   const state = useSelector((state) => state);
   const errors = state.errors.posts;
-  const { newPosts } = state.posts;
 
   const history = useHistory();
 

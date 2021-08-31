@@ -13,7 +13,7 @@ const Main = () => {
   const pagesVisited = pageNumber * postsPerPage;
 
   const state = useSelector((state) => state);
-  const { newPosts, all } = state.posts;
+  const { newPosts, all, loading } = state.posts;
 
   const { fetchPosts } = bindActionCreators(postActions, dispatch);
 
@@ -45,22 +45,28 @@ const Main = () => {
 
   return (
     <div className="main-container">
-      {Object.values(all).length === 0 ? (
-        <div className="no-post-message">There are no Posts</div>
+      {loading === true ? (
+        <div className="no-post-message">Loading...</div>
+      ) : Object.values(all).length === 0 ? (
+        <div className="no-post-message">There are no posts...</div>
       ) : (
         <div className="cards">{displayPosts}</div>
       )}
-      <ReactPaginate
-        previousLabel={"Previous"}
-        nextLabel={"Next"}
-        pageCount={pageCount}
-        onPageChange={changePage}
-        containerClassName={"pagination-btn"}
-        previousLinkClassName={"previous-btn"}
-        nextLinkClassName={"next-btn"}
-        disabledClassName={"pagination-disabled"}
-        activeClassName={"pagination-active"}
-      />
+      {Object.values(all).length === 0 ? (
+        ""
+      ) : (
+        <ReactPaginate
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          pageCount={pageCount}
+          onPageChange={changePage}
+          containerClassName={"pagination-btn"}
+          previousLinkClassName={"previous-btn"}
+          nextLinkClassName={"next-btn"}
+          disabledClassName={"pagination-disabled"}
+          activeClassName={"pagination-active"}
+        />
+      )}
     </div>
   );
 };

@@ -108,6 +108,34 @@ nav {
   color: grey;
 }
 
+.pagination-btn {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 40px;
+}
+
+.pagination-btn a {
+  border: 1px solid grey;
+  color: #407294;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.previous-btn,
+.next-btn {
+  border: 1px solid grey;
+  color: #407294;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.pagination-active a {
+  background-color: #407294;
+  color: #f4f4f4f4;
+  cursor: pointer;
+}
+
 /* SESSION FORMS */
 .session-form {
   margin: 30px;
@@ -286,12 +314,12 @@ nav {
   /* MAIN */
   .cards {
     display: flex;
-    flex-wrap: wrap;
-    margin: 40px;
+    flex-direction: column;
+    align-items: center;
   }
 
   .card-container {
-    width: 300px;
+    width: 600px;
   }
 
   /* SESSION FORMS */
@@ -309,11 +337,7 @@ nav {
 @media only screen and (min-width: 992px) {
   /* MAIN */
   .cards {
-    margin: 50px;
-  }
-
-  .card-container {
-    width: 410px;
+    margin: 30px;
   }
 
   /* POST */

@@ -10,7 +10,7 @@ const UserPosts = () => {
   const { id } = useParams();
 
   const state = useSelector((state) => state);
-  const { all, newPosts, user } = state.posts;
+  const { user } = state.posts;
 
   const { fetchUserPosts } = bindActionCreators(postActions, dispatch);
 
@@ -21,7 +21,7 @@ const UserPosts = () => {
   return (
     <div className="main-container">
       {Object.values(user).length === 0 ? (
-        "There are no Posts"
+        <div className="no-post-message">There are no posts</div>
       ) : (
         <div className="cards">
           {Object.values(user).map((value, index) => {

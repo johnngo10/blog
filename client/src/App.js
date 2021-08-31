@@ -11,6 +11,8 @@ import Post from "./components/Post/Post";
 import UserPosts from "./components/Post/UserPosts";
 import PostForm from "./components/Post/PostForm";
 import PostEditForm from "./components/Post/PostEditForm";
+import NotFound from "./components/NotFound";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -24,7 +26,9 @@ const App = () => {
         <Route exact path="/post/user/:id" component={UserPosts} />
         <ProtectedRoute exact path="/post/:id/edit" component={PostEditForm} />
         <Route exact path="/post/:id" component={Post} />
+        <Route component={NotFound} />
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 };

@@ -56,7 +56,9 @@ const Header = () => {
 
   return (
     <header>
-      <h1>Blog</h1>
+      <NavLink to={"/"} className="logo">
+        <h1>Blogbite</h1>
+      </NavLink>
       {getLinks()}
     </header>
   );

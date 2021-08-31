@@ -108,7 +108,9 @@ const Post = () => {
                       <p className="comment-date">
                         {moment(value.date).fromNow()}
                       </p>
-                      {value.author === user.username ? (
+                      {user === undefined ? (
+                        ""
+                      ) : value.author === user.username ? (
                         <i
                           className="fas fa-times"
                           onClick={(e) => handleCommentDelete(value._id)}

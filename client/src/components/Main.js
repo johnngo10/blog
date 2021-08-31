@@ -20,7 +20,7 @@ const Main = () => {
   return (
     <div className="main-container">
       {Object.values(all).length === 0 ? (
-        "There are no Posts"
+        <div className="no-post-message">There are no Posts</div>
       ) : (
         <div className="cards">
           {Object.values(all).map((value, index) => {

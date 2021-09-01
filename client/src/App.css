@@ -36,7 +36,7 @@
 /* HEADER */
 header {
   text-align: center;
-  padding: 20px 70px;
+  padding: 20px 20px;
   background-color: #407294;
   color: #f4f4f4f4;
 }
@@ -45,11 +45,12 @@ nav {
   padding: 10px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .nav-links {
   text-decoration: none;
-  margin: 0 10px 0 10px;
+  margin: 0 10px;
   color: #f4f4f4f4;
 }
 
@@ -173,6 +174,7 @@ nav {
   border: none;
   font-size: 16px;
   cursor: pointer;
+  -webkit-appearance: none;
 }
 
 .cancel-btn {
@@ -240,6 +242,7 @@ nav {
   margin-left: 5px;
   font-size: 16px;
   cursor: pointer;
+  -webkit-appearance: none;
 }
 
 .no-comments {
@@ -309,6 +312,7 @@ nav {
   header {
     display: flex;
     justify-content: space-between;
+    padding: 20px 70px;
   }
 
   /* MAIN */

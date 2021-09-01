@@ -58,7 +58,7 @@ const Header = () => {
     <header>
       <NavLink to={"/"} className="logo">
         <h1>
-          <i class="fas fa-cookie-bite"></i> BlogByte
+          <i className="fas fa-cookie-bite"></i> BlogByte
         </h1>
       </NavLink>
       {getLinks()}

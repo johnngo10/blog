@@ -2,7 +2,7 @@
 
 BlogByte is a MERN stack application that allows users to create blog posts for others to see. Includes authentication to allow users to create accounts and engage in blog posts.
 
-- [Live Demo](https://members-only-xuan.herokuapp.com/)
+- [Live Demo](https://warm-tundra-93422.herokuapp.com/)
 
 ## Built With
 

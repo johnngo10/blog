@@ -8,7 +8,6 @@ require("./config/passport")(passport);
 const flash = require("connect-flash");
 const db = require("./config/keys").mongoURI;
 const mongoose = require("mongoose");
-// const indexRouter = require("./routes/index");
 const userRouter = require("./routes/users");
 const postRouter = require("./routes/posts");
 
